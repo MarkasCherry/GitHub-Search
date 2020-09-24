@@ -1,0 +1,58 @@
+body {
+    background: url("/images/github-background.jpg") center fixed;
+    background-size: 100%;
+}
+
+.home-wrapper {
+    width: 50%;
+    margin: 30vh 25% 0 25%;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 20px;
+    border-top: 2px solid darkorange;
+    border-bottom: 2px solid darkorange;
+}
+.home-wrapper h2 {
+    margin-bottom: 50px;
+}
+
+input:focus {
+    color: darkorange !important;
+    transition: 200ms !important;
+}
+
+button {
+    background: unset;
+    border: unset;
+    color: white;
+    outline: unset !important;
+}
+
+.results-wrapper {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.result-card {
+    flex: 1 0 42%;
+    margin: 2%;
+    height: 400px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 20px;
+    border-top: 2px solid darkorange;
+    border-bottom: 2px solid darkorange;
+    text-align: center;
+    justify-content: space-around;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.result-card .img img {
+    border-radius: 50%;
+    width: 200px;
+}
