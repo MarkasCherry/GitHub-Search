@@ -7,26 +7,34 @@ use Illuminate\Support\Facades\Http;
 
 class gitController extends Controller {
 
+    private function makeGitHubAPIRequest($entity, $search, $sort, $order) {
+
+        $url = 'https://api.github.com/';
+
+        $query =  'search/' . $entity . '?q=' . $search . '&sort=' . $sort . '&order=' . $order;
+
+        return json_decode(Http::get($url . $query) -> getBody()) -> items;
+
+    }
+
     public function index() {
 
         return view('index');
 
     }
 
+
     public function search(Request $request) {
 
         $search = $request -> input('search');
 
-        $url = 'https://api.github.com/';
+        $sort = 'stars';
+        $order = 'desc';
 
-        $entity = 'users';
-        $query =  'search/' . $entity . '?q=' . $search . '&sort=stars&order=desc';
+        $users = $this -> makeGitHubAPIRequest('users', $search, $sort, $order);
+        $repos = $this -> makeGitHubAPIRequest('repositories', $search, $sort, $order);
 
-        $response = json_decode(Http::get($url . $query) -> getBody());
-
-        $users = $response -> items;
-
-        return view('result', compact('users'));
+        return view('result', compact('users', 'repos'));
     }
 
 }
