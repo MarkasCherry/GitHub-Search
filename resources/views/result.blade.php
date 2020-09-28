@@ -32,17 +32,92 @@
 
 <body>
 
-<div class="show-btns">
-    <button id="showUsers" type="button" class="btn near-moon-gradient waves-effect">Show Users</button>
-    <button id="showRepos" type="button" class="btn btn-outline-default waves-effect">Show Repositories</button>
+<div class="pagination-container">
+    <div>
+        <h6>Results found: {{ $total_items }}</h6>
+    </div>
+
+    <div class="pagination">
+        {{--    if current page is first page   --}}
+        @if($page == 1)
+            <div class="current-page">
+                @else
+                    <div>
+                        @endif
+                        {{--    always display link to first page   --}}
+                        <button form="filterForm" name="page" type="submit" value="{{ 1 }}">{{ 1 }}</button>
+                    </div>
+
+                    <div>
+                        {{--    if the page number is greater than 3, then display first page with "..."    --}}
+                        @if($page > 3)
+                            <p>...</p>
+                        @endif
+                    </div>
+
+                    <div>
+                        {{--    display two pages backstep, unless it is first page--}}
+                        @if($page-2 > 1)
+                            <button form="filterForm" name="page" type="submit" value="{{ $page - 2 }}">{{ $page - 2 }}</button>
+                        @endif
+                    </div>
+
+                    <div>
+                        {{--    display one page backstep, unless it is first page--}}
+                        @if($page-1 > 1)
+                            <button form="filterForm" name="page" type="submit" value="{{ $page-1 }}">{{ $page-1 }}</button>
+                        @endif
+                    </div>
+
+                    {{--    display current page, unless it is first or last page        --}}
+                    <div class="current-page">
+                        @if($page != ceil($total_items / 30) && $page != 1)
+                            <button form="filterForm" name="page" type="submit" value="{{ $page }}">{{ $page }}</button>
+                        @endif
+                    </div>
+
+                    {{--    display one page forward, unless it is more than last page        --}}
+                    <div>
+                        @if($page+1 < ceil($total_items / 30))
+                            <button form="filterForm" name="page" type="submit" value="{{ $page+1 }}">{{$page + 1 }}</button>
+                        @endif
+                    </div>
+
+                    {{--    display two pages forward, unless it is more than last page        --}}
+                    <div>
+                        @if($page+2 < ceil($total_items / 30))
+                            <button form="filterForm" name="page" type="submit" value="{{ $page+2 }}">{{$page + 2 }}</button>
+                        @endif
+                    </div>
+
+                    {{--    if the page number is greater than total pages - 2, then display last page without "..."    --}}
+                    <div>
+                        @if($page < ceil($total_items / 30)-3)
+                            <p>...</p>
+                        @endif
+                    </div>
+
+
+                    {{--    if current page is last page   --}}
+                    @if($page == ceil($total_items / 30))
+                        <div class="current-page">
+                            @else
+                                <div>
+                                    @endif
+                                    {{--    always display last page, unless it is the equal to first page        --}}
+                                    @if(ceil($total_items / 30) != 1)
+                                        <button form="filterForm" name="page" type="submit" value="{{ceil($total_items / 30)}}">{{ceil($total_items / 30)}}</button>
+                                    @endif
+                                </div>
+                        </div>
 </div>
 
 
-<div class="users">
+@if($entity == "users")
 
     <div class="results-wrapper">
 
-        @foreach($users as $user)
+        @foreach($items as $user)
 
             <div class="result-card">
 
@@ -59,7 +134,7 @@
                 </div>
 
                 <div>
-                    <a type="button" class="btn btn blue-gradient" href="{{ $user -> html_url }}">Visit profile</a>
+                    <a type="button" class="btn purple-gradient" href="{{ $user -> html_url }}">Visit profile</a>
                 </div>
 
             </div>
@@ -68,39 +143,28 @@
 
     </div>
 
-</div>
-
-
-<div class="repos hidden">
+@else
 
     <div class="results-wrapper">
 
-        @foreach($repos as $repo)
+        @foreach($items as $repo)
 
             <div class="result-card">
 
-                <div>
-                    <h1>{{ $repo -> language }}</h1>
-                </div>
-
                 <div class="login">
-                    <h2>{{ $repo -> name }}</h2>
+                    <h4>{{ $repo -> name }}</h4>
+                    <h5>{{ $repo -> language }}</h5>
                 </div>
 
-                <div>
-                    <p>By: {{ $repo -> owner -> login }}</p>
+                <div class="desc">
+                    <p><b>Description:</b> {{ mb_strimwidth($repo -> description, 0, 400, '...') }}</p>
+                    <p style="text-align: center"><i>By {{ $repo -> owner -> login }}</i></p>
                 </div>
 
-                <div>
-                    <p>Description: {{ $repo -> description }}</p>
-                </div>
 
                 <div>
-                    <a type="button" class="btn peach-gradient" href="{{ $repo -> owner -> html_url }}">Visit owner GitHub</a>
-                </div>
-
-                <div>
-                    <a type="button" class="btn btn blue-gradient" href="{{ $repo -> html_url }}">Visit repository</a>
+                    <a type="button" class="btn peach-gradient" href="{{ $repo -> owner -> html_url }}">Visit owner's GitHub</a>
+                    <a type="button" class="btn purple-gradient" href="{{ $repo -> html_url }}">Visit repository</a>
                 </div>
 
             </div>
@@ -109,34 +173,8 @@
 
     </div>
 
-</div>
+@endif
 
 </body>
-
-<script>
-
-    $("#showUsers").click(function() {
-        $("#showRepos").removeClass("near-moon-gradient");
-        $("#showRepos").addClass("btn-outline-default");
-
-        $("#showUsers").removeClass("btn-outline-default");
-        $("#showUsers").addClass("near-moon-gradient");
-
-        $(".users").show( "slow" );
-        $(".repos").hide( "slow" );
-    });
-
-    $("#showRepos").click(function() {
-        $("#showUsers").removeClass("near-moon-gradient");
-        $("#showUsers").addClass("btn-outline-default");
-
-        $("#showRepos").removeClass("btn-outline-default");
-        $("#showRepos").addClass("near-moon-gradient");
-
-        $(".users").hide( "slow" );
-        $(".repos").show( "slow" );
-    });
-
-</script>
 
 </html>

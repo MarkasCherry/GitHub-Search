@@ -35,16 +35,19 @@
 
             <h2>GitHub Search</h2>
 
-            <!-- Boostrap Search form -->
             <form class="form-inline d-flex justify-content-center md-form form-sm mt-0" action="{{route('search')}}" method="POST">
             @csrf
 
-                <button type="submit">
-                    <i class="fas fa-search" aria-hidden="true"></i>
-                </button>
+                <i class="fas fa-search" aria-hidden="true"></i>
 
                 <input class="form-control form-control-sm ml-3 w-75" type="text" name="search" placeholder="Search"
-                       aria-label="Search">
+                       aria-label="Search" autocomplete="off">
+
+                <div class="search-btns">
+                    <input type="submit" name="entity" value="Search users" class="btn purple-gradient" />
+                    <input type="submit" name="entity" value="Search repositories" class="btn purple-gradient" />
+                </div>
+
             </form>
 
         </div>

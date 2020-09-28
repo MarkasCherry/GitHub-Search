@@ -14,34 +14,40 @@ body {
 }
 .home-wrapper h2 {
     margin-bottom: 50px;
+    letter-spacing: 2px;
 }
 
-input:focus {
+.home-wrapper input {
+    color: #c97c57 !important;
+    transition: 200ms !important;
+}
+
+.home-wrapper input:focus {
     color: #fd9668 !important;
     transition: 200ms !important;
 }
 
-button {
-    background: unset;
-    border: unset;
-    color: white;
-    outline: unset !important;
+.search-btns input{
+    margin-top: 10px;
+    color: white !important;
 }
 
-.btn {
-    padding: 7px 10px !important;
-    width: 50%;
+
+.search-btns input {
+    margin: 0;
+    padding: 10px 15px;
 }
+
 
 .results-wrapper {
-    width: 80%;
-    margin: 0 10% 80px 10%;
+    width: 90%;
+    margin: 0 5% 80px 5%;
     display: flex;
     flex-wrap: wrap;
 }
 
 .result-card {
-    flex: 1 0 42%;
+    flex: 1 0 29%;
     margin: 2%;
     min-height: 350px;
     background-color: rgba(0, 0, 0, 0.7);
@@ -50,10 +56,10 @@ button {
     border-top: 2px solid #fd9668;
     border-bottom: 2px solid #fd9668;
     text-align: center;
-    justify-content: space-around;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    align-items: stretch;
+    justify-content: space-between;
 }
 
 .result-card .img img {
@@ -65,22 +71,86 @@ button {
     margin-bottom: 20px;
 }
 
+.login {
+    width: 100%;
+    overflow: hidden;
+}
+
 .result-card .login {
     border-bottom: 1px solid rgba(99, 107, 111, 0.34);
     margin-bottom: 50px;
+    letter-spacing: 2px;
 }
 
-.hidden {
-    display: none;
+.result-card .login h5 {
+    color: #f36ec8;
 }
 
-.show-btns {
+
+.result-card .btn {
+    padding: 7px 10px !important;
+    width: 50%;
+}
+
+.result-card .desc {
+    text-align: justify;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.pagination-container {
+    width: 100%;
+    background-color: rgb(24, 24, 24);
+    color: #fd9668;
     position: fixed;
     bottom: 0;
     display: flex;
-    flex-direction: row;
-    width: 100%;
-    padding: 0 37% 0 37%;
-    background-color: rgb(21, 21, 21);
-    z-index: 5;
+    justify-content: center;
+    z-index: 1;
 }
+
+.pagination-container h6 {
+    padding: 15px;
+}
+
+
+.pagination {
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.pagination button {
+    color: #c65aa2;
+    text-decoration: none;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 5px 5px 0 5px;
+    transition: 250ms;
+    background-color: unset;
+    border: 0;
+    outline: none;
+}
+
+.pagination button:focus {
+    outline: none;
+}
+
+.pagination button:hover {
+    color: #783c4e;
+    text-decoration: none;
+    padding: 5px;
+    transition: 250ms;
+    border-bottom: rgba(46, 156, 250, 0.77) solid 2px;
+}
+
+.current-page button {
+    pointer-events: none;
+    cursor: default;
+    padding: 5px 5px 0 5px;
+    color: #783c4e;
+    border-bottom: rgba(46, 156, 250, 0.77) solid 1px;
+}
+

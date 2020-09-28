@@ -14,4 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'gitController@index');
+
 Route::post('/', 'gitController@search') -> name('search');
+
+Route::get('/{entity}/{search}/{page?}/{sort?}/{order?}', 'gitController@results') -> name('results');
