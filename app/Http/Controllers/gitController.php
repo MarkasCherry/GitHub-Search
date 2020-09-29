@@ -23,11 +23,16 @@ class gitController extends Controller {
 
     }
 
-
     public function search(Request $request) {
 
         $search = $request -> input('search');
         $entity = $request -> input('entity');
+
+        if(is_null($search)) {
+            $message = 'Please do not play around with HTML. Thank you !';
+            return view('error', compact('message'));
+
+        }
 
         if (strpos($entity, 'users') !== false) {
             $entity = 'users';
@@ -42,12 +47,34 @@ class gitController extends Controller {
 
         $result = $this -> makeGitHubAPIRequest($entity, $search, $page, $sort, $order);
 
+        if(isset($result->message)) {
+
+            $message = $result->message;
+            return view('error', compact('message'));
+
+        }
+
+        elseif(is_null($result->total_count) || $result->total_count == 0) {
+
+            $message = 'Sorry, no results found';
+            return view('error', compact('message'));
+
+        }
+
+        elseif ($page < 1 || $page > ceil($result->total_count/30)) {
+
+            $message = 'Sorry, this page does not exists';
+            return view('error', compact('message'));
+
+        };
+
         $items = $result->items;
         $total_items = $result->total_count;
 
-
-        return view('result', compact('items', 'entity', 'total_items', 'page'));
+        return view('result', compact('items', 'total_items' , 'entity', 'search', 'page', 'sort', 'order'));
     }
+
+
 
 }
 

@@ -1,6 +1,11 @@
+html {
+    height: 100%;
+}
+
 body {
-    background: url("/images/github-background.jpg") center fixed;
-    background-size: 100%;
+    background: url("/images/github-background.jpg") fixed;
+    background-size: cover;
+    background-position: center center;
 }
 
 .home-wrapper {
@@ -28,7 +33,7 @@ body {
 }
 
 .search-btns input{
-    margin-top: 10px;
+    margin-top: 10px !important;
     color: white !important;
 }
 
@@ -105,25 +110,37 @@ body {
     position: fixed;
     bottom: 0;
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
     z-index: 1;
+    padding: 5px 30px 0 30px;
 }
 
-.pagination-container h6 {
-    padding: 15px;
+.pagination-side {
+    color: white !important;
+    margin-bottom: 6px;
+    padding-top: 7px;
 }
 
+.pagination-side a {
+    color: white;
+}
+
+.pagination-container a:hover {
+    text-decoration: underline;
+    color: #fd9668;
+}
 
 .pagination {
-    height: 48px;
     display: flex;
     justify-content: center;
     font-size: 16px;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
-.pagination button {
-    color: #c65aa2;
+.pagination a {
+    color: #fd9668;
     text-decoration: none;
     margin-left: 5px;
     margin-right: 5px;
@@ -134,23 +151,89 @@ body {
     outline: none;
 }
 
-.pagination button:focus {
+.pagination a:focus {
     outline: none;
 }
 
-.pagination button:hover {
-    color: #783c4e;
+.pagination a:hover {
+    color: #afadab;
     text-decoration: none;
     padding: 5px;
     transition: 250ms;
-    border-bottom: rgba(46, 156, 250, 0.77) solid 2px;
+    border-bottom: #ee6fca solid 2px;
 }
 
-.current-page button {
+.current-page a {
     pointer-events: none;
     cursor: default;
     padding: 5px 5px 0 5px;
-    color: #783c4e;
-    border-bottom: rgba(46, 156, 250, 0.77) solid 1px;
+    color: #afadab;
+    border-bottom: #ee6fca solid 1px;
 }
+
+.error-msg {
+    color: #ff5a5a;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.home-wrapper a {
+    color: white;
+}
+
+
+@media (max-width: 1200px) {
+    .home-wrapper {
+        width: 70%;
+        margin: 30vh 15% 0 15%;
+    }
+
+}
+
+
+@media (max-width: 768px) {
+
+    .home-wrapper {
+        width: 100%;
+        margin: 20vh 0 0 0;
+    }
+
+    .home-wrapper .search-btns {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .results-wrapper {
+        width: 100%;
+        margin: 0 0 100px 0;
+    }
+
+    .result-card {
+        flex: 1 0 50%;
+        max-width: 100%;
+        margin: 2% 1% 2% 1%;
+    }
+
+}
+
+@media (max-width: 576px) {
+
+    .home-wrapper .search-btns input {
+        margin-top: 30px !important;
+    }
+
+    .pagination-container {
+        flex-direction: column-reverse;
+    }
+
+    .hide-sm {
+        display: none;
+    }
+
+}
+
+
+
+
 

@@ -41,10 +41,10 @@
                 <i class="fas fa-search" aria-hidden="true"></i>
 
                 <input class="form-control form-control-sm ml-3 w-75" type="text" name="search" placeholder="Search"
-                       aria-label="Search" autocomplete="off">
+                       aria-label="Search" autocomplete="off" required>
 
                 <div class="search-btns">
-                    <input type="submit" name="entity" value="Search users" class="btn purple-gradient" />
+                    <input type="submit" name="entity" value="Search users" class="btn peach-gradient" />
                     <input type="submit" name="entity" value="Search repositories" class="btn purple-gradient" />
                 </div>
 

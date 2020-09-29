@@ -32,87 +32,6 @@
 
 <body>
 
-<div class="pagination-container">
-    <div>
-        <h6>Results found: {{ $total_items }}</h6>
-    </div>
-
-    <div class="pagination">
-        {{--    if current page is first page   --}}
-        @if($page == 1)
-            <div class="current-page">
-                @else
-                    <div>
-                        @endif
-                        {{--    always display link to first page   --}}
-                        <button form="filterForm" name="page" type="submit" value="{{ 1 }}">{{ 1 }}</button>
-                    </div>
-
-                    <div>
-                        {{--    if the page number is greater than 3, then display first page with "..."    --}}
-                        @if($page > 3)
-                            <p>...</p>
-                        @endif
-                    </div>
-
-                    <div>
-                        {{--    display two pages backstep, unless it is first page--}}
-                        @if($page-2 > 1)
-                            <button form="filterForm" name="page" type="submit" value="{{ $page - 2 }}">{{ $page - 2 }}</button>
-                        @endif
-                    </div>
-
-                    <div>
-                        {{--    display one page backstep, unless it is first page--}}
-                        @if($page-1 > 1)
-                            <button form="filterForm" name="page" type="submit" value="{{ $page-1 }}">{{ $page-1 }}</button>
-                        @endif
-                    </div>
-
-                    {{--    display current page, unless it is first or last page        --}}
-                    <div class="current-page">
-                        @if($page != ceil($total_items / 30) && $page != 1)
-                            <button form="filterForm" name="page" type="submit" value="{{ $page }}">{{ $page }}</button>
-                        @endif
-                    </div>
-
-                    {{--    display one page forward, unless it is more than last page        --}}
-                    <div>
-                        @if($page+1 < ceil($total_items / 30))
-                            <button form="filterForm" name="page" type="submit" value="{{ $page+1 }}">{{$page + 1 }}</button>
-                        @endif
-                    </div>
-
-                    {{--    display two pages forward, unless it is more than last page        --}}
-                    <div>
-                        @if($page+2 < ceil($total_items / 30))
-                            <button form="filterForm" name="page" type="submit" value="{{ $page+2 }}">{{$page + 2 }}</button>
-                        @endif
-                    </div>
-
-                    {{--    if the page number is greater than total pages - 2, then display last page without "..."    --}}
-                    <div>
-                        @if($page < ceil($total_items / 30)-3)
-                            <p>...</p>
-                        @endif
-                    </div>
-
-
-                    {{--    if current page is last page   --}}
-                    @if($page == ceil($total_items / 30))
-                        <div class="current-page">
-                            @else
-                                <div>
-                                    @endif
-                                    {{--    always display last page, unless it is the equal to first page        --}}
-                                    @if(ceil($total_items / 30) != 1)
-                                        <button form="filterForm" name="page" type="submit" value="{{ceil($total_items / 30)}}">{{ceil($total_items / 30)}}</button>
-                                    @endif
-                                </div>
-                        </div>
-</div>
-
-
 @if($entity == "users")
 
     <div class="results-wrapper">
@@ -130,11 +49,7 @@
                 </div>
 
                 <div>
-                    <a type="button" class="btn peach-gradient" href="{{ $user -> repos_url }}">Check repositories</a>
-                </div>
-
-                <div>
-                    <a type="button" class="btn purple-gradient" href="{{ $user -> html_url }}">Visit profile</a>
+                    <a type="button" class="btn peach-gradient" href="{{ $user -> html_url }}">Visit profile</a>
                 </div>
 
             </div>
@@ -174,6 +89,93 @@
     </div>
 
 @endif
+
+<div class="pagination-container">
+
+    <div class="pagination-side">
+        <h6><a href="{{route('home')}}"><i class="fas fa-search" aria-hidden="true"></i> Search again</a></h6>
+    </div>
+
+
+    <div class="pagination">
+        {{--    if current page is first page   --}}
+        @if($page == 1)
+            <div class="current-page">
+                @else
+                    <div>
+                        @endif
+                        {{--    always display link to first page   --}}
+                        <a href="{{route('results', [$entity, $search, 1, $sort, $order])}}">{{ 1 }}</a>
+                    </div>
+
+                    <div>
+                        {{--    if the page number is greater than 3, then display first page with "..."    --}}
+                        @if($page > 3)
+                            <p>...</p>
+                        @endif
+                    </div>
+
+                    <div>
+                        {{--    display two pages backstep, unless it is first page--}}
+                        @if($page-2 > 1)
+                            <a href="{{route('results', [$entity, $search, $page - 2, $sort, $order])}}">{{ $page - 2 }}</a>
+                        @endif
+                    </div>
+
+                    <div>
+                        {{--    display one page backstep, unless it is first page--}}
+                        @if($page-1 > 1)
+                            <a href="{{route('results', [$entity, $search, $page-1, $sort, $order])}}">{{ $page - 1 }}</a>
+                        @endif
+                    </div>
+
+                    {{--    display current page, unless it is first or last page        --}}
+                    <div class="current-page">
+                        @if($page != ceil($total_items / 30) && $page != 1)
+                            <a href="{{route('results', [$entity, $search, $page, $sort, $order])}}">{{ $page }}</a>
+                        @endif
+                    </div>
+
+                    {{--    display one page forward, unless it is more than last page        --}}
+                    <div>
+                        @if($page+1 < ceil($total_items / 30))
+                            <a href="{{route('results', [$entity, $search, $page+1, $sort, $order])}}">{{ $page + 1 }}</a>
+                        @endif
+                    </div>
+
+                    {{--    display two pages forward, unless it is more than last page        --}}
+                    <div>
+                        @if($page+2 < ceil($total_items / 30))
+                            <a href="{{route('results', [$entity, $search, $page+2, $sort, $order])}}">{{ $page + 2 }}</a>
+                        @endif
+                    </div>
+
+                    {{--    if the page number is greater than total pages - 2, then display last page without "..."    --}}
+                    <div>
+                        @if($page < ceil($total_items / 30)-3)
+                            <p>...</p>
+                        @endif
+                    </div>
+
+
+                    {{--    if current page is last page   --}}
+                    @if($page == ceil($total_items / 30))
+                        <div class="current-page">
+                            @else
+                                <div>
+                                    @endif
+                                    {{--    always display last page, unless it is the equal to first page        --}}
+                                    @if(ceil($total_items / 30) != 1)
+                                        <a href="{{route('results', [$entity, $search, ceil($total_items / 30), $sort, $order])}}">{{ ceil($total_items / 30) }}</a>
+                                    @endif
+                                </div>
+                        </div>
+
+        <div class="pagination-side hide-sm">
+            <h6>Results found: {{ $total_items }}</h6>
+        </divpagination-left>
+
+</div>
 
 </body>
 
