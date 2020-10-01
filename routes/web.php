@@ -17,5 +17,5 @@ Route::get('/', 'gitController@index') -> name('home');
 
 Route::post('/', 'gitController@search') -> name('search');
 
-Route::get('/{entity}/{search}/page_{page?}/{sort?}/{order?}', 'gitController@results') -> name('results');
+Route::get('/{entity}/{search}/page_{page?}', 'gitController@results') -> name('results');
 

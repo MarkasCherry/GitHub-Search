@@ -43,7 +43,11 @@ class gitController extends Controller {
         return redirect() -> route('results', [$entity, $search, 1]);
     }
 
-    public function results($entity, $search, $page = 1, $sort = 'stars', $order = 'desc') {
+    public function results($entity, $search, $page = 1) {
+
+        //Latter gonna add sorting and ordering.
+        $sort = 'stars';
+        $order = 'desc';
 
         $result = $this -> makeGitHubAPIRequest($entity, $search, $page, $sort, $order);
 

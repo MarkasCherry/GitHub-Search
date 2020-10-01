@@ -32,8 +32,11 @@ body {
     transition: 200ms !important;
 }
 
+.search-btns {
+    padding-top: 10px;
+}
+
 .search-btns input{
-    margin-top: 10px !important;
     color: white !important;
 }
 
@@ -179,6 +182,11 @@ body {
 
 .home-wrapper a {
     color: white;
+}
+
+.home-wrapper h6 a:hover {
+    color: #fd9668;
+    text-decoration: underline;
 }
 
 
